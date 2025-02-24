@@ -2,6 +2,6 @@
   "name": "Lemon Tree",
   "symbol": "LTREE",
   "description": "A full-grown lemon tree!",
-  "image": "https://raw.githubusercontent.com/LemonClubCollective/NFT/refs/heads/main/Tree.webp",
+  "image": "https://raw.githubusercontent.com/LemonClubCollective/NFT/refs/heads/main/TREEOFLEMON.jpg",
   "attributes": [{ "trait_type": "Stage", "value": "Tree" }]
 }
