@@ -1,9 +1,7 @@
 {
   "name": "Lemon Sapling",
-  "symbol": "LSAP",
-  "description": "A Lemon Sapling!",
-  "image": "https://raw.githubusercontent.com/LemonClubCollective/NFT/refs/heads/main/Tree.webp",
-  "attributes": [
-    { "trait_type": "Stage", "value": "Tree" }
-  ]
+  "symbol": "LSAPL",
+  "description": "A sturdy lemon sapling reaching up!",
+  "image": "https://raw.githubusercontent.com/LemonClubCollective/NFT/refs/heads/main/Sapling.webp",
+  "attributes": [{ "trait_type": "Stage", "value": "Sapling" }]
 }
