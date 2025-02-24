@@ -1,7 +1,7 @@
 {
-  "name": "Lemon Tree",
-  "symbol": "LTREE",
-  "description": "A full-grown lemon tree!",
+  "name": "Lemon Sapling",
+  "symbol": "LSAP",
+  "description": "A Lemon Sapling!",
   "image": "https://raw.githubusercontent.com/LemonClubCollective/NFT/refs/heads/main/Tree.webp",
   "attributes": [
     { "trait_type": "Stage", "value": "Tree" }
