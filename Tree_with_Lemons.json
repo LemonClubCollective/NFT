@@ -1,9 +1,0 @@
-{
-  "name": "Lemon Tree with Lemons",
-  "symbol": "LTREE+",
-  "description": "A lemon tree bursting with fruit!",
-  "image": "https://raw.githubusercontent.com/LemonClubCollective/NFT/refs/heads/main/Tree_with_Lemons.webp",
-  "attributes": [
-    { "trait_type": "Stage", "value": "Tree with Lemons" }
-  ]
-}
