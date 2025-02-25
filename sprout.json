@@ -2,8 +2,6 @@
   "name": "Lemon Sprout",
   "symbol": "LSPRT",
   "description": "A young lemon sprout breaking through!",
-  "image": "https://raw.githubusercontent.com/LemonClubCollective/NFT/refs/heads/main/Sprout.webp",
-  "attributes": [
-    { "trait_type": "Stage", "value": "Sprout" }
-  ]
+  "image": "https://raw.githubusercontent.com/LemonClubCollective/NFT/refs/heads/main/sprout.png",
+  "attributes": [{ "trait_type": "Stage", "value": "Sprout" }]
 }
