@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemon Club Collective</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Chelsea Market', cursive; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #87ceeb; 
+            overflow-x: hidden;
+        }
+        .town-container { 
+            position: relative; 
+            min-height: 100vh; 
+            background: url('https://raw.githubusercontent.com/LemonClubCollective/NFT/main/LCCtown.webp') repeat-y center top; 
+            background-size: 100% auto; 
+            text-align: center; 
+        }
+        .parallax { 
+            perspective: 1px;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .parallax-back {
+            transform: translateZ(-1px) scale(2);
+            z-index: -1;
+        }
+        .parallax-base {
+            transform: translateZ(0);
+            z-index: 1;
+        }
+        .town-title { 
+            color: #ff4500; 
+            font-size: 48px; 
+            padding: 20px 20px 10px; 
+            text-shadow: 2px 2px 4px #fffacd; 
+            margin: 0; 
+        }
+        .header { 
+            display: flex; 
+            align-items: center; 
+            width: 100%; 
+            padding: 10px 0; 
+            background-color: rgba(255, 250, 205, 0.7); 
+            z-index: 10; 
+            transition: transform 0.3s ease;
+        }
+        .header.hidden { 
+            transform: translateY(-100%);
+        }
+        .lcc-logo { 
+            width: 80px; 
+            height: auto; 
+            margin-left: 20px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .lcc-logo:hover { 
+            transform: scale(1.1); 
+        }
+        .buildings { 
+            display: flex; 
+            justify-content: center; 
+            gap: 25px; 
+            flex-grow: 1; 
+        }
+        .building { 
+            width: 80px; 
+            cursor: pointer; 
+            transition: transform 0.3s, box-shadow 0.3s; 
+            position: relative;
+        }
+        .building:hover { 
+            transform: scale(1.1); 
+        }
+        .building.active { 
+            box-shadow: 0 0 10px #ff4500; 
+        }
+        .building img { 
+            width: 100%; 
+            height: auto; 
+        }
+        .building-label { 
+            color: #fffacd; 
+            font-size: 14px; 
+            text-shadow: 1px 1px 2px #228b22; 
+            margin-top: 5px; 
+        }
+        .building.friends, .building.shop, .building.dexscreener { 
+            width: 96px; 
+        }
+        .dexscreener { 
+            order: 999; 
+        }
+        .content { 
+            display: none; 
+            position: relative; 
+            margin: 150px auto 20px; 
+            background-color: rgba(255, 250, 205, 0.95); 
+            padding: 20px; 
+            border-radius: 15px; 
+            max-width: 80%; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            text-align: left; 
+        }
+        .content.active { 
+            display: block; 
+        }
+        .content-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 20px; 
+        }
+        .social-links { 
+            display: flex; 
+            gap: 10px; 
+        }
+        .social-icon { 
+            width: 30px; 
+            height: auto; 
+            transition: transform 0.3s; 
+        }
+        .social-icon:hover { 
+            transform: scale(1.2); 
+        }
+        .nft-card { 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            margin: 10px; 
+            display: inline-block; 
+            width: 300px; 
+            background-color: white; 
+            vertical-align: top; 
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.2s; 
+        }
+        .nft-card:hover { 
+            transform: scale(1.05); 
+        }
+        .staked { 
+            border: 2px solid #ff4500; 
+        }
+        .nft-card img { 
+            max-width: 200px; 
+        }
+        .nft-card-buttons { 
+            display: flex; 
+            justify-content: center; 
+            gap: 5px; 
+            flex-wrap: wrap; 
+        }
+        .nft-card button { 
+            padding: 8px 12px; 
+            margin: 2px; 
+            font-size: 12px; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            transition: transform 0.2s, box-shadow 0.2s; 
+            position: relative;
+        }
+        .nft-card button:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); 
+        }
+        .nft-card .evolve-btn { 
+            background-color: #00bcd4; 
+            color: white; 
+        }
+        .nft-card .evolve-btn:hover { 
+            background-color: #0097a7; 
+        }
+        .nft-card .reward-btn { 
+            background-color: #f44336; 
+            color: white; 
+        }
+        .nft-card .reward-btn:hover { 
+            background-color: #d32f2f; 
+        }
+        .nft-card .stake-btn { 
+            background-color: #4caf50; 
+            color: white; 
+        }
+        .nft-card .stake-btn:hover { 
+            background-color: #388e3c; 
+        }
+        .nft-card .unstake-btn { 
+            background-color: #ffeb3b; 
+            color: black; 
+        }
+        .nft-card .unstake-btn:hover { 
+            background-color: #fdd835; 
+        }
+        button { 
+            padding: 8px 16px; 
+            margin: 5px; 
+            background-color: #32cd32; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            position: relative; 
+            transition: transform 0.2s, box-shadow 0.2s; 
+        }
+        button:hover { 
+            background-color: #228b22; 
+            transform: scale(1.05); 
+            box-shadow: 0 0 8px #32cd32; 
+        }
+        .reward-button { 
+            background-color: #ff4500; 
+        }
+        .reward-button:hover { 
+            background-color: #e03e00; 
+            box-shadow: 0 0 8px #ff4500; 
+        }
+        button.loading::after { 
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 3px solid #fff;
+            border-top: 3px solid #ffeb3b; 
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        button.loading {
+            color: transparent; 
+        }
+        [data-tooltip] {
+            position: relative;
+        }
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            background-color: #ff4500;
+            color: white;
+            font-family: 'Chelsea Market', cursive;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 100;
+        }
+        button[data-tooltip]:hover::after {
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 5px;
+        }
+        .building[data-tooltip]:hover::after {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 5px;
+        }
+        input, textarea { 
+            width: 100%; 
+            max-width: 300px; 
+            margin: 5px 0; 
+            padding: 5px; 
+            font-family: 'Chelsea Market', cursive; 
+        }
+        textarea { 
+            height: 80px; 
+        }
+        .auth-container { 
+            text-align: center; 
+            margin-top: 20px; 
+            padding: 15px; 
+            background: rgba(255, 255, 255, 0.8); 
+            border-radius: 10px; 
+            display: inline-block; 
+        }
+        .auth-row { 
+            margin: 10px 0; 
+        }
+        .post-card { 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            margin: 10px auto; 
+            width: 80%; 
+            max-width: 600px; 
+            background-color: white; 
+            text-align: left; 
+        }
+        .post-card p { 
+            margin: 5px 0; 
+            word-wrap: break-word; 
+        }
+        .post-card button, .comment button { 
+            font-size: 12px; 
+        }
+        .comment-section { 
+            margin-top: 10px; 
+            border-top: 1px solid #ccc; 
+            padding-top: 10px; 
+            display: none; 
+        }
+        .comment-section.visible { 
+            display: block; 
+        }
+        .comment { 
+            font-size: 12px; 
+            margin: 5px 0; 
+            padding: 5px; 
+            background-color: #f5f5f5; 
+            border-radius: 5px; 
+        }
+        .comment.replied { 
+            margin-left: 20px; 
+            background-color: #e0e0e0; 
+        }
+        .comment-input { 
+            width: 100%; 
+            max-width: 280px; 
+            height: 40px; 
+            margin: 5px 0; 
+        }
+        #login-status { 
+            position: fixed; 
+            top: 10px; 
+            right: 10px; 
+            color: #fffacd; 
+            text-shadow: 1px 1px 2px #228b22; 
+            z-index: 10; 
+        }
+        #wallet-status { 
+            position: fixed; 
+            top: 40px; 
+            right: 10px; 
+            color: #fffacd; 
+            text-shadow: 1px 1px 2px #228b22; 
+            z-index: 10; 
+        }
+        #auth-btn { 
+            position: fixed; 
+            top: 70px; 
+            right: 10px; 
+            padding: 8px 16px; 
+            background-color: #32cd32; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            z-index: 20; 
+            transition: transform 0.2s, box-shadow 0.2s; 
+        }
+        #auth-btn:hover { 
+            background-color: #228b22; 
+            transform: scale(1.05); 
+            box-shadow: 0 0 8px #32cd32; 
+        }
+        table { 
+            width: 100%; 
+            max-width: 500px; 
+            margin: 10px auto; 
+            border-collapse: collapse; 
+        }
+        th, td { 
+            border: 1px solid #ccc; 
+            padding: 8px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #ffeb3b; 
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+            text-align: center; 
+        }
+        li { 
+            margin: 10px 0; 
+        }
+        .roadmap-img { 
+            max-width: 100%; 
+            height: auto; 
+            margin: 20px auto; 
+            display: block; 
+            border: 2px solid #ff4500; 
+            border-radius: 10px; 
+        }
+        .step { 
+            margin: 15px 0; 
+            font-size: 23.4px; 
+            color: #ff4500; 
+            text-align: center; 
+        }
+        #friends {
+            text-align: center;
+            font-size: 48px;
+        }
+        #friends h3, #friends p {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        #friends .content-header h2 {
+            font-size: 72px;
+        }
+        #home, #tokenomics, #roadmap, #howtobuy, #quests {
+            text-align: center;
+        }
+        #home p, #tokenomics p, #roadmap p, #howtobuy p, #quests p, 
+        #home h3, #tokenomics h3, #roadmap h3, #howtobuy h3, #quests h3,
+        #home table, #tokenomics table, #roadmap table, #howtobuy table, #quests table {
+            font-size: 1.3em;
+        }
+        .quest-list {
+            margin: 20px 0;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .quest-item {
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .quest-item h4 {
+            margin: 0 0 10px;
+            color: #ff4500;
+        }
+        .quest-progress {
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            height: 20px;
+            margin: 10px 0;
+        }
+        .quest-progress-bar {
+            height: 100%;
+            background-color: #32cd32;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        .quest-item button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        footer { 
+            background-color: rgba(255, 250, 205, 0.7); 
+            padding: 20px 0; 
+            text-align: center; 
+            color: #ff4500; 
+            font-size: 16px; 
+            margin-top: 20px; 
+            border-top: 2px solid #ff4500; 
+        }
+    </style>
+</head>
+<body>
+    <div class="town-container parallax">
+        <div class="parallax-layer parallax-back">
+            <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/LCCtown.webp" style="width: 100%; height: auto;">
+        </div>
+        <div class="parallax-layer parallax-base">
+            <div id="auth-btn" data-tooltip="Login or Logout" onclick="toggleAuth()">Login/Logout</div>
+            <h1 class="town-title">Lemon Club Collective</h1>
+            <div id="login-status">Not logged in</div>
+            <div id="wallet-status">Wallet not connected</div>
+            <div class="header">
+                <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/lcclogo.png" alt="LCC Logo" class="lcc-logo" onclick="showContent('home')">
+                <div class="buildings">
+                    <div class="building" id="building-home" onclick="showContent('home')" data-tooltip="Visit Home">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/townhall.png" alt="Town Hall">
+                        <div class="building-label">Home</div>
+                    </div>
+                    <div class="building" id="building-staking" onclick="showContent('staking')" data-tooltip="Stake NFTs">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/greenhouse.png" alt="Garden">
+                        <div class="building-label">Garden</div>
+                    </div>
+                    <div class="building" id="building-tokenomics" onclick="showContent('tokenomics')" data-tooltip="View Tokenomics">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/tokenomics.png" alt="Tokenomics">
+                        <div class="building-label">Tokenomics</div>
+                    </div>
+                    <div class="building" id="building-roadmap" onclick="showContent('roadmap')" data-tooltip="See Roadmap">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/roadmap.png" alt="Road Map">
+                        <div class="building-label">Road Map</div>
+                    </div>
+                    <div class="building" id="building-howtobuy" onclick="showContent('howtobuy')" data-tooltip="Learn How to Buy">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/howto.png" alt="How To Buy">
+                        <div class="building-label">How To Buy</div>
+                    </div>
+                    <div class="building" id="building-forum" onclick="showContent('forum')" data-tooltip="Join Forum">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/forum.png" alt="Forum">
+                        <div class="building-label">Forum</div>
+                    </div>
+                    <div class="building friends" id="building-friends" onclick="showContent('friends')" data-tooltip="Meet Friends">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/treehouse.png" alt="Friends">
+                        <div class="building-label">Friends</div>
+                    </div>
+                    <div class="building" id="building-quests" onclick="showContent('quests')" data-tooltip="Lemon Grove Quests">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/gallery.png" alt="Quests">
+                        <div class="building-label">Quests</div>
+                    </div>
+                    <div class="building shop" onclick="window.open('https://lemonclub.shop/', '_blank')" data-tooltip="Visit Shop">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/shop.png" alt="Shop">
+                        <div class="building-label">Shop</div>
+                    </div>
+                    <div class="building dexscreener" onclick="window.open('https://dexscreener.com/solana/edhssiovavy7jkqiwur1psczpgz2khoqbmmlytppxzpp', '_blank')" data-tooltip="Check DexScreener">
+                        <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/dex.png" alt="DexScreener">
+                        <div class="building-label">DexScreener</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="home" class="content active">
+                <div class="content-header">
+                    <h2>Welcome To Lemon Club!!</h2>
+                    <div class="social-links">
+                        <a href="https://discord.gg/uvpCGdxwU4" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/discordlogo.png" alt="Discord" class="social-icon"></a>
+                        <a href="https://t.me/c/2271932098/35" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/telegramlogo.png" alt="Telegram" class="social-icon"></a>
+                        <a href="https://www.youtube.com/@LemonClubCollective" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/youtube.png" alt="YouTube" class="social-icon"></a>
+                        <a href="https://www.facebook.com/groups/1170961554633456" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/facebooklogo.png" alt="Facebook" class="social-icon"></a>
+                        <a href="https://x.com/LemonClubCoin" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/xlogo.png" alt="X" class="social-icon"></a>
+                    </div>
+                </div>
+                <p>CA: EK1mT7iPC9eP8wfS5QQABdNEkLVYz3dc2Tuok11naKnB</p>
+                <p><strong>Mission:</strong> Give meaningful utility to rugged token projects with Lemon Club Collective Take Over (LCCTO). Where rugs come back to life.</p>
+                <p>Rug Pulls are rampant across crypto, with many investors losing their money to quick pump and dump scams from sites like pump.fun and Moonshot. We give these tokens utility within our network of offerings of no-rug projects doing REAL LIFE good for the world.</p>
+                <div class="auth-container">
+                    <div class="auth-row">
+                        <input type="text" id="regUsername" placeholder="Username" style="display: inline-block; width: 45%;">
+                        <input type="password" id="regPassword" placeholder="Password" style="display: inline-block; width: 45%;">
+                        <button onclick="register()" data-tooltip="Register New Account" style="display: inline-block; vertical-align: middle;">Register</button>
+                    </div>
+                    <div class="auth-row">
+                        <input type="text" id="loginUsername" placeholder="Username" style="display: inline-block; width: 45%;">
+                        <input type="password" id="loginPassword" placeholder="Password" style="display: inline-block; width: 45%;">
+                        <button onclick="login()" data-tooltip="Login to Account" style="display: inline-block; vertical-align: middle;">Login</button>
+                    </div>
+                    <button onclick="logout()" data-tooltip="Logout of Account">Logout</button>
+                    <button id="connect-wallet-btn" onclick="toggleWalletConnection()" data-tooltip="Connect/Disconnect Wallet">Connect Wallet</button>
+                </div>
+            </div>
+            <div id="staking" class="content">
+                <div class="content-header">
+                    <h2>Garden - Staking</h2>
+                    <div class="social-links">
+                        <a href="https://discord.gg/uvpCGdxwU4" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/discordlogo.png" alt="Discord" class="social-icon"></a>
+                        <a href="https://t.me/c/2271932098/35" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/telegramlogo.png" alt="Telegram" class="social-icon"></a>
+                        <a href="https://www.youtube.com/@LemonClubCollective" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/youtube.png" alt="YouTube" class="social-icon"></a>
+                        <a href="https://www.facebook.com/groups/1170961554633456" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/facebooklogo.png" alt="Facebook" class="social-icon"></a>
+                        <a href="https://x.com/LemonClubCoin" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/xlogo.png" alt="X" class="social-icon"></a>
+                    </div>
+                </div>
+                <button onclick="mintNFT(this)" data-tooltip="Mint a New NFT">Mint New NFT</button>
+                <button id="connect-wallet-btn-staking" onclick="toggleWalletConnection()" data-tooltip="Connect/Disconnect Wallet">Connect Wallet</button>
+                <div id="nft-preview" style="margin-top: 10px;"></div>
+                <div id="nft-info">
+                    <p>Please login to manage your Lemon NFTs!</p>
+                </div>
+            </div>
+            <div id="tokenomics" class="content">
+                <div class="content-header">
+                    <h2>Tokenomics</h2>
+                    <div class="social-links">
+                        <a href="https://discord.gg/uvpCGdxwU4" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/discordlogo.png" alt="Discord" class="social-icon"></a>
+                        <a href="https://t.me/c/2271932098/35" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/telegramlogo.png" alt="Telegram" class="social-icon"></a>
+                        <a href="https://www.youtube.com/@LemonClubCollective" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/youtube.png" alt="YouTube" class="social-icon"></a>
+                        <a href="https://www.facebook.com/groups/1170961554633456" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/facebooklogo.png" alt="Facebook" class="social-icon"></a>
+                        <a href="https://x.com/LemonClubCoin" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/xlogo.png" alt="X" class="social-icon"></a>
+                    </div>
+                </div>
+                <p>CA: EK1mT7iPC9eP8wfS5QQABdNEkLVYz3dc2Tuok11naKnB</p>
+                <h3>$LCC Token</h3>
+                <table>
+                    <tr><th>Total Supply</th><td>1,000,000,000,000,000</td></tr>
+                    <tr><th>Distribution</th><td></td></tr>
+                    <tr><td>Liquidity Pool</td><td>60%</td></tr>
+                    <tr><td>Community Wallet</td><td>10%</td></tr>
+                    <tr><td>Team</td><td>10%</td></tr>
+                    <tr><td>Staking</td><td>10%</td></tr>
+                    <tr><td>Bounties</td><td>10%</td></tr>
+                </table>
+                <h3>$LCDAO Token</h3>
+                <table>
+                    <tr><th>Total Supply</th><td>100,000,000,000</td></tr>
+                    <tr><th>Distribution</th><td></td></tr>
+                    <tr><td>Liquidity</td><td>50%</td></tr>
+                    <tr><td>Team</td><td>1%</td></tr>
+                    <tr><td>Remaining</td><td>TBD</td></tr>
+                </table>
+                <h3>$LSDT (Lemons Stonks Dollar)</h3>
+                <p>Earn $LSDT by staking $LCC and any Rescue NFT</p>
+            </div>
+            <div id="roadmap" class="content">
+                <div class="content-header">
+                    <h2>Road Map</h2>
+                    <div class="social-links">
+                        <a href="https://discord.gg/uvpCGdxwU4" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/discordlogo.png" alt="Discord" class="social-icon"></a>
+                        <a href="https://t.me/c/2271932098/35" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/telegramlogo.png" alt="Telegram" class="social-icon"></a>
+                        <a href="https://www.youtube.com/@LemonClubCollective" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/youtube.png" alt="YouTube" class="social-icon"></a>
+                        <a href="https://www.facebook.com/groups/1170961554633456" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/facebooklogo.png" alt="Facebook" class="social-icon"></a>
+                        <a href="https://x.com/LemonClubCoin" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/xlogo.png" alt="X" class="social-icon"></a>
+                    </div>
+                </div>
+                <p>CA: EK1mT7iPC9eP8wfS5QQABdNEkLVYz3dc2Tuok11naKnB</p>
+                <ul>
+                    <li><strong>$50k MCAP:</strong> 10% Supply - $5000 - SOL/LCC launch</li>
+                    <li><strong>Mcap Milestone Criteria:</strong> Must hold above Mcap threshold for over 24 hrs</li>
+                    <li><strong>Events:</strong> Triggered at $1m, $10m, $100m, $500m Mcap - Announced as thresholds are met</li>
+                </ul>
+                <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/roadmap1.png" alt="Roadmap Part 1" class="roadmap-img">
+                <ul>
+                    <li><strong>Project Wallets:</strong> Funded by project trading bot</li>
+                    <li><strong>Team Bounty Wallet:</strong> 1000 SOL</li>
+                    <li><strong>Merch & Promo Wallet:</strong> Launches Merchandise related Branding - 1000 SOL</li>
+                    <li><strong>Validator Node Wallet:</strong> 10,000 SOL</li>
+                    <li><strong>LCDAO Bots:</strong> Launch Projects through LCDAO Launch Pad</li>
+                </ul>
+                <img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/roadmap2.png" alt="Roadmap Part 2" class="roadmap-img">
+            </div>
+            <div id="howtobuy" class="content">
+                <div class="content-header">
+                    <h2>How to Buy $LCC</h2>
+                    <div class="social-links">
+                        <a href="https://discord.gg/uvpCGdxwU4" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/discordlogo.png" alt="Discord" class="social-icon"></a>
+                        <a href="https://t.me/c/2271932098/35" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/telegramlogo.png" alt="Telegram" class="social-icon"></a>
+                        <a href="https://www.youtube.com/@LemonClubCollective" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/youtube.png" alt="YouTube" class="social-icon"></a>
+                        <a href="https://www.facebook.com/groups/1170961554633456" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/facebooklogo.png" alt="Facebook" class="social-icon"></a>
+                        <a href="https://x.com/LemonClubCoin" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/xlogo.png" alt="X" class="social-icon"></a>
+                    </div>
+                </div>
+                <p>CA: EK1mT7iPC9eP8wfS5QQABdNEkLVYz3dc2Tuok11naKnB</p>
+                <h3>How to Buy Lemon Club Collective ($LCC) – A Beginner’s Guide</h3>
+                <p>Ready to jump into crypto? Here’s a super simple way to buy $LCC using the Phantom wallet. Let’s go step-by-step:</p>
+                <div class="step">1. Get the Phantom Wallet</div>
+                <p>Download the Phantom app (it’s free!) from your phone’s app store or as a browser extension on your computer. Think of this as your crypto “bank account” – it’s where you’ll store your coins.</p>
+                <div class="step">2. Set It Up & Stay Safe</div>
+                <p>Open Phantom and follow the setup instructions to create your wallet. You’ll get a secret recovery phrase (a list of random words). Write it down and keep it somewhere safe—like a locked drawer or a note only you can access. This is your master key! If you lose it, you lose your wallet.</p>
+                <div class="step">3. Add Some Solana (SOL)</div>
+                <p>You’ll need Solana (SOL) to buy $LCC—it’s the “money” used on this blockchain. Buy SOL from an exchange like Coinbase, Binance, or Kraken, then send it to your Phantom wallet address (you’ll see it in the app under “Deposit”).</p>
+                <div class="step">4. Swap SOL for $LCC</div>
+                <p>Open Phantom and tap “Swap” (it’s like exchanging one currency for another). At the top, make sure SOL is selected (that’s what you’re trading from). At the bottom, tap the dropdown, then paste the $LCC contract address (find it at the top of our website) into the search bar. Select Lemon Club Collective when it pops up.</p>
+                <div class="step">5. Choose Your Amount & Confirm</div>
+                <p>Enter how much SOL you want to swap for $LCC (start small if you’re new!). Double-check everything, then hit “Swap Now” to finish the trade.</p>
+                <h3>Boom! You Did It!</h3>
+                <p>You’ve just set up your first crypto wallet and bought $LCC! Welcome to the Lemon Club Collective crew—your coins are now in your Phantom wallet.</p>
+                <p><strong>Quick Tip:</strong> New to this? Try a tiny test swap first (like $5 worth) to get the hang of it!</p>
+            </div>
+            <div id="forum" class="content">
+                <div class="content-header">
+                    <h2>Forum - Community</h2>
+                    <div class="social-links">
+                        <a href="https://discord.gg/uvpCGdxwU4" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/discordlogo.png" alt="Discord" class="social-icon"></a>
+                        <a href="https://t.me/c/2271932098/35" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/telegramlogo.png" alt="Telegram" class="social-icon"></a>
+                        <a href="https://www.youtube.com/@LemonClubCollective" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/youtube.png" alt="YouTube" class="social-icon"></a>
+                        <a href="https://www.facebook.com/groups/1170961554633456" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/facebooklogo.png" alt="Facebook" class="social-icon"></a>
+                        <a href="https://x.com/LemonClubCoin" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/xlogo.png" alt="X" class="social-icon"></a>
+                    </div>
+                </div>
+                <textarea id="postContent" maxlength="280" placeholder="Share your thoughts (max 280 chars)"></textarea>
+                <button onclick="submitPost()" data-tooltip="Submit Post">Post</button>
+                <div id="post-list"></div>
+            </div>
+            <div id="friends" class="content">
+                <div class="content-header">
+                    <h2>Lemon Club Friends</h2>
+                    <div class="social-links">
+                        <a href="https://discord.gg/uvpCGdxwU4" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/discordlogo.png" alt="Discord" class="social-icon"></a>
+                        <a href="https://t.me/c/2271932098/35" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/telegramlogo.png" alt="Telegram" class="social-icon"></a>
+                        <a href="https://www.youtube.com/@LemonClubCollective" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/youtube.png" alt="YouTube" class="social-icon"></a>
+                        <a href="https://www.facebook.com/groups/1170961554633456" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/facebooklogo.png" alt="Facebook" class="social-icon"></a>
+                        <a href="https://x.com/LemonClubCoin" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/xlogo.png" alt="X" class="social-icon"></a>
+                    </div>
+                </div>
+                <h3>Lemon Club Welcomes Owl Capone!!!</h3>
+                <p>Owl Capone is a mob boss by day and a crypto bro by night! During the day he takes care of business, he looks after his community, and he manages his finances!</p>
+                <p>He never sleeps! He stays up OWL night long managing his crypto empire and investing in meme coins! To him, crypto is a real HOOT!</p>
+                <p><strong>Contract Address:</strong> 76BK4cu5xN8hp7cjNyHLt3gnwZUEsaEpV6h3ahyumoon</p>
+                <h3>Lemon Club Welcomes Bothered Rabbit!</h3>
+                <p><strong>Contract Address:</strong> CVNr3XYNTp7Pwp3rKUVHrKMg7oVbokcUbXzNopNpump</p>
+                <p>$1$</p>
+                <p><strong>Contract Address:</strong> QLEYLx27uF5C2V6k8F3Q6vqppkC6XKUBPMiirLcpump</p>
+                <p>Lemon Club Collective</p>
+                <p>DEX SCREENER</p>
+                <p>$\mathbf{X}$</p>
+                <p><strong>CA:</strong> EK1mT7iPC9eP8wfS5QQABdNEkLVYz3dc2Tuok11naKnB</p>
+                <h3>Lemon Club Welcomes Big Dill!</h3>
+                <p>Big Dill On Ice!</p>
+                <p>Big Dill was on his way to paradise when his airplane crashed!!! Now he's stuck on ice in the Arctic! Help him as he tries to escape!!!</p>
+                <p><strong>Play Now</strong></p>
+                <p><strong>Contract Address:</strong> 2FzY24gMb55Uop8T7V1dZkFTN6z5rpMgyeanZVBmoon</p>
+            </div>
+            <div id="quests" class="content">
+                <div class="content-header">
+                    <h2>Lemon Grove Quests</h2>
+                    <div class="social-links">
+                        <a href="https://discord.gg/uvpCGdxwU4" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/discordlogo.png" alt="Discord" class="social-icon"></a>
+                        <a href="https://t.me/c/2271932098/35" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/telegramlogo.png" alt="Telegram" class="social-icon"></a>
+                        <a href="https://www.youtube.com/@LemonClubCollective" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/youtube.png" alt="YouTube" class="social-icon"></a>
+                        <a href="https://www.facebook.com/groups/1170961554633456" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/facebooklogo.png" alt="Facebook" class="social-icon"></a>
+                        <a href="https://x.com/LemonClubCoin" target="_blank"><img src="https://raw.githubusercontent.com/LemonClubCollective/NFT/main/xlogo.png" alt="X" class="social-icon"></a>
+                    </div>
+                </div>
+                <p>Complete quests to earn reward points!</p>
+                <div class="quest-list" id="daily-quests">
+                    <h3>Daily Quests</h3>
+                </div>
+                <div class="quest-list" id="weekly-quests">
+                    <h3>Weekly Quests</h3>
+                </div>
+                <div class="quest-list" id="limited-quests">
+                    <h3>Limited-Time Quests</h3>
+                </div>
+            </div>
+            <footer>
+                <p>© 2025 Lemon Club Collective | All Rights Reserved | <a href="https://lemonclubcollective.com" style="color: #ff4500;">Visit Our Site</a></p>
+            </footer>
+        </div>
+    </div>
+
+  <script src="app.js"></script>
+<script>
+    let loggedInUsername = null;
+    let loggedInWallet = null;
+    const rewardIntervals = {};
+    let lastScrollTop = 0;
+
+    function showContent(sectionId) {
+        document.querySelectorAll('.content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+        if (sectionId === 'staking' && loggedInUsername) {
+            updateNFTDisplay('nft-info');
+            restoreNFTPreview();
+        } else if (sectionId === 'forum') {
+            updatePostsDisplay();
+        } else if (sectionId === 'quests') {
+            updateQuestsDisplay();
+        }
+        document.querySelectorAll('.building').forEach(building => {
+            building.classList.remove('active');
+        });
+        const activeBuilding = document.getElementById(`building-${sectionId}`);
+        if (activeBuilding) activeBuilding.classList.add('active');
+        if (loggedInUsername && sectionId !== 'quests') {
+            fetch(`http://localhost:3000/quests/${loggedInUsername}`).then(res => res.json()).then(data => {
+                const currentProgress = data.weekly.find(q => q.id === 'visit-sections')?.progress || 0;
+                fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questId: 'visit-sections', type: 'weekly', progress: currentProgress + 1 })
+                }).then(() => updateQuestsDisplay());
+            });
+        }
+    }
+
+    function toggleAuth() {
+        if (loggedInUsername) {
+            logout();
+        } else {
+            showContent('home');
+        }
+    }
+
+    function updateAuthButton() {
+        const authBtn = document.getElementById('auth-btn');
+        authBtn.textContent = loggedInUsername ? 'Logout' : 'Login';
+    }
+
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > lastScrollTop) {
+            header.classList.add('hidden');
+        } else {
+            header.classList.remove('hidden');
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+
+    document.querySelectorAll('.social-icon').forEach(link => {
+        link.addEventListener('click', () => {
+            if (loggedInUsername) {
+                fetch(`http://localhost:3000/quests/${loggedInUsername}`).then(res => res.json()).then(data => {
+                    const currentProgress = data.daily.find(q => q.id === 'social-squeeze')?.progress || 0;
+                    fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ questId: 'social-squeeze', type: 'daily', progress: currentProgress + 1 })
+                    }).then(() => updateQuestsDisplay());
+                }).catch(err => console.error('Error fetching quest data:', err));
+            }
+        });
+    });
+
+    async function register() {
+        try {
+            const username = document.getElementById('regUsername').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            if (!username || !password) {
+                throw new Error("Please enter both username and password!");
+            }
+
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to register');
+            }
+
+            alert('Registered successfully! Please login.');
+            document.getElementById('regUsername').value = '';
+            document.getElementById('regPassword').value = '';
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error('Error in register:', error);
+        }
+    }
+
+    async function login() {
+        try {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            if (!username || !password) {
+                throw new Error("Please enter both username and password!");
+            }
+
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || "Login failed—check your username or password!");
+            }
+
+            loggedInUsername = username;
+            document.getElementById('login-status').textContent = `Logged in as ${username}`;
+            alert(`Welcome back, ${username}!${result.pointsAwarded ? ' Your NFTs earned points!' : ''}`);
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+            showContent('staking');
+            updateAuthButton();
+            updateQuestsDisplay();
+        } catch (error) {
+            console.error("Login error:", error.message);
+            alert(`Oops! ${error.message}`);
+        }
+    }
+
+    function logout() {
+        loggedInUsername = null;
+        disconnectWallet();
+        document.getElementById('login-status').textContent = 'Not logged in';
+        localStorage.removeItem('lastMintedNFT');
+        document.getElementById('nft-preview').innerHTML = '';
+        showContent('home');
+        updateAuthButton();
+    }
+
+    async function toggleWalletConnection() {
+        const connectBtn = document.getElementById('connect-wallet-btn');
+        const connectBtnStaking = document.getElementById('connect-wallet-btn-staking');
+        if (loggedInWallet) {
+            disconnectWallet();
+        } else {
+            try {
+                const provider = await getProvider();
+                const wallet = provider.publicKey.toString();
+                loggedInWallet = wallet;
+                if (connectBtn) connectBtn.textContent = 'Disconnect Wallet';
+                if (connectBtnStaking) connectBtnStaking.textContent = 'Disconnect Wallet';
+                document.getElementById('wallet-status').textContent = `Wallet: ${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
+                console.log('Connected to Phantom:', wallet);
+            } catch (error) {
+                alert('Error connecting wallet: ' + error.message);
+                console.error('Wallet connection error:', error);
+            }
+        }
+    }
+
+    function disconnectWallet() {
+        if (window.solana && window.solana.disconnect) {
+            window.solana.disconnect();
+        }
+        loggedInWallet = null;
+        const connectBtn = document.getElementById('connect-wallet-btn');
+        const connectBtnStaking = document.getElementById('connect-wallet-btn-staking');
+        if (connectBtn) connectBtn.textContent = 'Connect Wallet';
+        if (connectBtnStaking) connectBtnStaking.textContent = 'Connect Wallet';
+        document.getElementById('wallet-status').textContent = 'Wallet not connected';
+        console.log('Wallet disconnected');
+    }
+
+    async function updateNFTDisplay(containerId, showButtons = true) {
+        if (!loggedInUsername) {
+            document.getElementById(containerId).innerHTML = '<p>Please login to manage your Lemon NFTs!</p>';
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/nft/${loggedInUsername}`);
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || 'Failed to fetch NFTs');
+            }
+
+            const nfts = data.nfts; // Access the nfts array from the response
+
+            if (!Array.isArray(nfts) || nfts.length === 0) {
+                document.getElementById(containerId).innerHTML = '<p>No NFTs yet—mint one to start growing!</p>';
+                return;
+            }
+
+            const stageImages = {
+                'Lemon Seed': 'https://raw.githubusercontent.com/LemonClubCollective/NFT/main/seed.png',
+                'Lemon Sprout': 'https://raw.githubusercontent.com/LemonClubCollective/NFT/main/sprout.png',
+                'Lemon Sapling': 'https://raw.githubusercontent.com/LemonClubCollective/NFT/main/sapling.png',
+                'Lemon Tree': 'https://raw.githubusercontent.com/LemonClubCollective/NFT/main/lemontree.png'
+            };
+
+            let html = '';
+            nfts.forEach(nftData => {
+                const { nft, points, nextMinPoints, staked, rewards } = nftData;
+                const mintedTime = nftData.mintTimestamp ? new Date(nftData.mintTimestamp).toLocaleString() : 'Unknown';
+                html += `
+                    <div class="nft-card ${staked ? 'staked' : ''}">
+                        <img src="${nftData.imageUri || stageImages[nft.name] || 'https://via.placeholder.com/200'}" alt="${nft.name}">
+                        <p>Stage: ${nft.name}</p>
+                        <p>Points: ${points}</p>
+                        <p>Next Stage: ${nextMinPoints ? nextMinPoints + ' points' : 'Maxed out!'}</p>
+                        <p>Staked: ${staked ? 'Yes' : 'No'}</p>
+                        <p>Rewards: <span id="rewards-${nft.mintAddress}">${rewards}</span></p>
+                        <p style="font-size: 12px; color: #555;">Minted: ${mintedTime}</p>
+                        <p style="font-size: 12px; color: #555; word-break: break-all;">Mint: ${nft.mintAddress.slice(0, 8)}...</p>
+                `;
+                if (showButtons) {
+                    html += `
+                        <div class="nft-card-buttons">
+                            <button class="evolve-btn" onclick="evolveNFT('${nft.mintAddress}', this)" data-tooltip="Evolve NFT">Evolve</button>
+                            <button class="reward-btn" onclick="evolveWithRewards('${nft.mintAddress}', this)" data-tooltip="Evolve with Rewards">Use Rewards (5)</button>
+                            <button class="stake-btn" onclick="stakeNFT('${nft.mintAddress}')" data-tooltip="Stake NFT">Stake</button>
+                            <button class="unstake-btn" onclick="unstakeNFT('${nft.mintAddress}')" data-tooltip="Unstake NFT">Unstake</button>
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+                if (rewardIntervals[nft.mintAddress]) {
+                    clearInterval(rewardIntervals[nft.mintAddress]);
+                    delete rewardIntervals[nft.mintAddress];
+                }
+                if (staked && nftData.stakeStart) {
+                    rewardIntervals[nft.mintAddress] = setInterval(async () => {
+                        const response = await fetch(`http://localhost:3000/nft/${loggedInUsername}`);
+                        const updatedData = await response.json();
+                        const updatedNFT = updatedData.nfts.find(n => n.nft.mintAddress === nft.mintAddress);
+                        if (updatedNFT && updatedNFT.staked) {
+                            document.getElementById(`rewards-${nft.mintAddress}`).textContent = updatedNFT.rewards;
+                        } else {
+                            clearInterval(rewardIntervals[nft.mintAddress]);
+                            delete rewardIntervals[nft.mintAddress];
+                        }
+                    }, 1000);
+                }
+            });
+            document.getElementById(containerId).innerHTML = html;
+        } catch (error) {
+            console.error('Error updating display:', error.message);
+            document.getElementById(containerId).innerHTML = '<p>Oops, couldn’t load your NFTs—try again!</p>';
+        }
+    }
+
+    function restoreNFTPreview() {
+        const lastMinted = JSON.parse(localStorage.getItem('lastMintedNFT'));
+        if (lastMinted && lastMinted.imageUri) {
+            document.getElementById('nft-preview').innerHTML = `
+                <div class="nft-card">
+                    <img src="${lastMinted.imageUri}" alt="Last Minted NFT" style="max-width: 200px;">
+                    <p>Just Minted: Lemon Seed #${lastMinted.mintTimestamp}</p>
+                    <p>Mint Address: ${lastMinted.mintAddress.slice(0, 8)}...</p>
+                </div>
+            `;
+        }
+    }
+
+    function renderComments(comments, postIndex, wallet, path = []) {
+        let html = '';
+        comments.forEach((comment, index) => {
+            const commentDate = new Date(comment.timestamp).toLocaleString();
+            const currentPath = [...path, index];
+            const pathKey = currentPath.join('-');
+            html += `
+                <div class="comment ${path.length > 0 ? 'replied' : ''}">
+                    <p><strong>${comment.wallet.slice(0, 8)}...</strong> (${commentDate})</p>
+                    <p>${comment.content}</p>
+                    <p>Likes: <span id="comment-likes-${postIndex}-${pathKey}">${comment.likes}</span></p>
+                    <button onclick="likeComment(${postIndex}, [${currentPath}], '${wallet}')" data-tooltip="Like Comment">Like</button>
+                    <button onclick="toggleCommentInput(${postIndex}, '${pathKey}')" data-tooltip="Add Comment">Comment</button>
+                    <div id="comment-input-${postIndex}-${pathKey}" style="display: none;">
+                        <textarea id="comment-content-${postIndex}-${pathKey}" class="comment-input" maxlength="280" placeholder="Add a comment (max 280 chars)"></textarea>
+                        <button onclick="submitComment(${postIndex}, [${currentPath}], '${wallet}')" data-tooltip="Submit Comment">Submit</button>
+                    </div>
+            `;
+            if (comment.replies && comment.replies.length > 0) {
+                html += renderComments(comment.replies, postIndex, wallet, currentPath);
+            }
+            html += `</div>`;
+        });
+        return html;
+    }
+
+    async function updatePostsDisplay() {
+        try {
+            const response = await fetch('http://localhost:3000/posts');
+            const posts = await response.json();
+            console.log('[updatePostsDisplay] Fetched posts:', posts);
+            const wallet = loggedInWallet || (await getProvider()).publicKey.toString();
+
+            if (!Array.isArray(posts) || posts.length === 0) {
+                document.getElementById('post-list').innerHTML = '<p>No posts yet—be the first!</p>';
+                return;
+            }
+
+            let html = '';
+            posts.forEach((post, postIndex) => {
+                const date = new Date(post.timestamp).toLocaleString();
+                html += `
+                    <div class="post-card">
+                        <p><span>🍋</span> <strong>${post.wallet.slice(0, 8)}...</strong> (${date})</p>
+                        <p>${post.content}</p>
+                        <p>Likes: <span id="likes-${postIndex}">${post.likes || 0}</span></p>
+                        <button onclick="likePost(${postIndex}, '${wallet}')" data-tooltip="Like Post">Like</button>
+                        <button onclick="toggleCommentInput(${postIndex}, 'top')" data-tooltip="Add Comment">Comment</button>
+                        <button onclick="toggleComments(${postIndex})" data-tooltip="Show/Hide Comments">Show/Hide Comments (${(post.comments || []).length})</button>
+                        <div id="comment-input-${postIndex}-top" style="display: none;">
+                            <textarea id="comment-content-${postIndex}-top" class="comment-input" maxlength="280" placeholder="Add a comment (max 280 chars)"></textarea>
+                            <button onclick="submitComment(${postIndex}, [], '${wallet}')" data-tooltip="Submit Comment">Submit</button>
+                        </div>
+                        <div id="comment-section-${postIndex}" class="comment-section">
+                            ${renderComments(post.comments || [], postIndex, wallet)}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('post-list').innerHTML = html;
+        } catch (error) {
+            console.error('Error updating posts:', error);
+            document.getElementById('post-list').innerHTML = '<p>Error loading posts. Try again!</p>';
+        }
+    }
+
+    async function submitPost() {
+        if (!loggedInUsername) {
+            alert('Please login to post!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to post!');
+            return;
+        }
+
+        try {
+            const content = document.getElementById('postContent').value.trim();
+            if (!content) throw new Error('Post content cannot be empty');
+
+            const response = await fetch('http://localhost:3000/posts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ wallet: loggedInWallet, content })
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to submit post');
+            }
+
+            console.log('[submitPost] Post added:', result.post);
+            document.getElementById('postContent').value = '';
+            alert('Post submitted successfully!');
+            await updatePostsDisplay();
+            fetch(`http://localhost:3000/quests/${loggedInUsername}`).then(res => res.json()).then(data => {
+                const zestProgress = data.daily.find(q => q.id === 'community-zest')?.progress || 0;
+                const bardProgress = data.weekly.find(q => q.id === 'lemon-bard')?.progress || 0;
+                fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questId: 'community-zest', type: 'daily', progress: zestProgress + 1 })
+                });
+                fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questId: 'lemon-bard', type: 'weekly', progress: bardProgress + 1 })
+                }).then(() => updateQuestsDisplay());
+            });
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error('Error in submitPost:', error);
+        }
+    }
+
+    async function likePost(postIndex, wallet) {
+        if (!loggedInUsername) {
+            alert('Please login to like posts!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to like posts!');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/posts/like', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ wallet: loggedInWallet, postIndex })
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to like post');
+            }
+
+            document.getElementById(`likes-${postIndex}`).textContent = result.likes;
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error('Error in likePost:', error);
+        }
+    }
+
+    function toggleCommentInput(postIndex, pathKey) {
+        const inputDiv = document.getElementById(`comment-input-${postIndex}-${pathKey}`);
+        inputDiv.style.display = inputDiv.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function toggleComments(postIndex) {
+        const commentSection = document.getElementById(`comment-section-${postIndex}`);
+        commentSection.classList.toggle('visible');
+    }
+
+    async function submitComment(postIndex, path, wallet) {
+        if (!loggedInUsername) {
+            alert('Please login to comment!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to comment!');
+            return;
+        }
+
+        try {
+            const pathKey = path.length === 0 ? 'top' : path.join('-');
+            const content = document.getElementById(`comment-content-${postIndex}-${pathKey}`).value.trim();
+            if (!content) throw new Error('Comment content cannot be empty');
+
+            const response = await fetch('http://localhost:3000/posts/comment' + (path.length > 0 ? '/reply' : ''), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ wallet: loggedInWallet, postIndex, ...(path.length > 0 && { path }), content })
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to submit comment');
+            }
+
+            document.getElementById(`comment-content-${postIndex}-${pathKey}`).value = '';
+            document.getElementById(`comment-input-${postIndex}-${pathKey}`).style.display = 'none';
+            alert('Comment submitted successfully!');
+            await updatePostsDisplay();
+            fetch(`http://localhost:3000/quests/${loggedInUsername}`).then(res => res.json()).then(data => {
+                const currentProgress = data.weekly.find(q => q.id === 'lemon-bard')?.progress || 0;
+                fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questId: 'lemon-bard', type: 'weekly', progress: currentProgress + 1 })
+                }).then(() => updateQuestsDisplay());
+            });
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error('Error in submitComment:', error);
+        }
+    }
+
+    async function likeComment(postIndex, path, wallet) {
+        if (!loggedInUsername) {
+            alert('Please login to like comments!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to like comments!');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/posts/comment/like', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ wallet: loggedInWallet, postIndex, path })
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to like comment');
+            }
+
+            document.getElementById(`comment-likes-${postIndex}-${path.join('-')}`).textContent = result.likes;
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error('Error in likeComment:', error);
+        }
+    }
+
+    async function stakeNFT(mintAddress) {
+        if (!loggedInUsername) {
+            alert('Please login to stake!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to stake!');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/stake/${loggedInUsername}/${mintAddress}`, { method: 'POST' });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to stake NFT');
+            }
+
+            alert('NFT staked successfully!');
+            await updateNFTDisplay('nft-info');
+            fetch(`http://localhost:3000/quests/${loggedInUsername}`).then(res => res.json()).then(data => {
+                const currentProgress = data.weekly.find(q => q.id === 'grove-keeper')?.progress || 0;
+                fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questId: 'grove-keeper', type: 'weekly', progress: currentProgress + 1 })
+                }).then(() => updateQuestsDisplay());
+            });
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error('Error in stakeNFT:', error);
+        }
+    }
+
+    async function unstakeNFT(mintAddress) {
+        if (!loggedInUsername) {
+            alert('Please login to unstake!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to unstake!');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/unstake/${loggedInUsername}/${mintAddress}`, { method: 'POST' });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to unstake NFT');
+            }
+
+            alert(`NFT unstaked! Rewards: ${result.rewards}`);
+            await updateNFTDisplay('nft-info');
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error('Error in unstakeNFT:', error);
+        }
+    }
+
+    async function evolveNFT(mintAddress, button) {
+        if (!loggedInUsername) {
+            alert('Please login to evolve!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to evolve!');
+            return;
+        }
+
+        button.classList.add('loading');
+        try {
+            const response = await fetch(`http://localhost:3000/evolve/${loggedInUsername}/${mintAddress}`);
+            const result = await response.json();
+
+            if (!response.ok || result.error) {
+                throw new Error(result.error || 'Failed to evolve NFT');
+            }
+
+            alert(`NFT Evolved to ${result.newStage.name}!${result.usedRewards ? ' Used 5 rewards!' : ' Used points!'}`);
+            console.log("Evolution successful:", result);
+            await updateNFTDisplay('nft-info');
+            fetch(`http://localhost:3000/quests/${loggedInUsername}`).then(res => res.json()).then(data => {
+                const currentProgress = data.limited.find(q => q.id === 'million-lemon-bash')?.progress || 0;
+                fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questId: 'million-lemon-bash', type: 'limited', progress: currentProgress + 1 })
+                }).then(() => updateQuestsDisplay());
+            });
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error("Error in evolveNFT:", error);
+        } finally {
+            button.classList.remove('loading');
+        }
+    }
+
+    async function evolveWithRewards(mintAddress, button) {
+        if (!loggedInUsername) {
+            alert('Please login to evolve!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to evolve!');
+            return;
+        }
+
+        button.classList.add('loading');
+        try {
+            const response = await fetch(`http://localhost:3000/evolve/${loggedInUsername}/${mintAddress}`);
+            const result = await response.json();
+
+            if (!response.ok || result.error) {
+                throw new Error(result.error || 'Failed to evolve NFT with rewards');
+            }
+
+            if (!result.usedRewards) {
+                alert('Not enough rewards—using points instead!');
+            } else {
+                alert(`NFT Evolved to ${result.newStage.name}! Used 5 rewards!`);
+            }
+            console.log("Evolution with rewards successful:", result);
+            await updateNFTDisplay('nft-info');
+            fetch(`http://localhost:3000/quests/${loggedInUsername}`).then(res => res.json()).then(data => {
+                const currentProgress = data.limited.find(q => q.id === 'million-lemon-bash')?.progress || 0;
+                fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questId: 'million-lemon-bash', type: 'limited', progress: currentProgress + 1 })
+                }).then(() => updateQuestsDisplay());
+            });
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error("Error in evolveWithRewards:", error);
+        } finally {
+            button.classList.remove('loading');
+        }
+    }
+
+    async function mintNFT(button) {
+        if (!loggedInUsername) {
+            alert('Please login to mint!');
+            return;
+        }
+        if (!loggedInWallet) {
+            alert('Please connect your wallet to mint!');
+            return;
+        }
+
+        button.classList.add('loading');
+        try {
+            console.log("Starting mintNFT...");
+            const provider = await getProvider();
+            const wallet = provider.publicKey.toString();
+            console.log("Connected to Phantom:", wallet);
+
+            const response = await fetch(`http://localhost:3000/mint/${loggedInUsername}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ wallet })
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || "Something went wrong minting your NFT!");
+            }
+
+            console.log("Mint successful:", result);
+            await updateNFTDisplay('nft-info');
+            const previewData = {
+                imageUri: result.imageUri,
+                mintTimestamp: result.mintTimestamp,
+                mintAddress: result.mintAddress
+            };
+            localStorage.setItem('lastMintedNFT', JSON.stringify(previewData));
+            document.getElementById('nft-preview').innerHTML = `
+                <div class="nft-card">
+                    <img src="${result.imageUri}" alt="Newly Minted NFT" style="max-width: 200px;">
+                    <p>Just Minted: Lemon Seed #${result.mintTimestamp}</p>
+                    <p>Mint Address: ${result.mintAddress.slice(0, 8)}...</p>
+                </div>
+            `;
+            alert(`NFT minted successfully! Mint Address: ${result.mintAddress}`);
+            fetch(`http://localhost:3000/quests/${loggedInUsername}`).then(res => res.json()).then(data => {
+                const currentProgress = data.daily.find(q => q.id === 'lemon-picker')?.progress || 0;
+                fetch(`http://localhost:3000/quests/${loggedInUsername}/update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questId: 'lemon-picker', type: 'daily', progress: currentProgress + 1 })
+                }).then(() => updateQuestsDisplay());
+            });
+        } catch (error) {
+            console.error("Error in mintNFT:", error.message);
+            alert(`Oops! ${error.message} Try refreshing or checking your wallet.`);
+        } finally {
+            button.classList.remove('loading');
+        }
+    }
+
+    async function claimQuestReward(questId) {
+        if (!loggedInUsername) {
+            alert('Please login to claim rewards!');
+            return;
+        }
+        try {
+            console.log(`Claiming reward for quest: ${questId}`);
+            const response = await fetch(`http://localhost:3000/quests/${loggedInUsername}/claim`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ questId })
+            });
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to claim reward');
+            }
+
+            alert(`Reward claimed: ${result.points} points!`);
+            await updateQuestsDisplay();
+        } catch (error) {
+            alert('Error: ' + error.message);
+            console.error('Error in claimQuestReward:', error);
+        }
+    }
+
+    async function updateQuestsDisplay() {
+        if (!loggedInUsername) {
+            document.getElementById('daily-quests').innerHTML = '<h3>Daily Quests</h3><p>Please login to see quests!</p>';
+            document.getElementById('weekly-quests').innerHTML = '<h3>Weekly Quests</h3><p>Please login to see quests!</p>';
+            document.getElementById('limited-quests').innerHTML = '<h3>Limited-Time Quests</h3><p>Please login to see quests!</p>';
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/quests/${loggedInUsername}`);
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || 'Failed to fetch quests');
+            }
+
+            console.log('[Quests] Client received:', JSON.stringify(data, null, 2));
+
+            const renderQuests = (quests, containerId) => {
+                let html = `<h3>${containerId === 'daily-quests' ? 'Daily' : containerId === 'weekly-quests' ? 'Weekly' : 'Limited-Time'} Quests</h3>`;
+                quests.forEach(quest => {
+                    html += `
+                        <div class="quest-item" id="quest-${quest.id}">
+                            <h4>${quest.name || 'Unnamed Quest'}</h4>
+                            <p>${quest.desc ? quest.desc : 'No description available'} - Reward: ${quest.reward} points</p>
+                            <div class="quest-progress"><div class="quest-progress-bar" style="width: ${(quest.progress / quest.goal) * 100}%"></div></div>
+                            <p class="progress-text">${quest.progress}/${quest.goal}</p>
+                            <button onclick="claimQuestReward('${quest.id}')" data-tooltip="Claim Reward" ${quest.progress < quest.goal || quest.claimed ? 'disabled' : ''}>Claim</button>
+                        </div>
+                    `;
+                });
+                document.getElementById(containerId).innerHTML = html;
+            };
+
+            renderQuests(data.daily, 'daily-quests');
+            renderQuests(data.weekly, 'weekly-quests');
+            renderQuests(data.limited, 'limited-quests');
+        } catch (error) {
+            console.error('Error fetching quests:', error);
+            document.getElementById('daily-quests').innerHTML = '<h3>Daily Quests</h3><p>Error loading quests</p>';
+            document.getElementById('weekly-quests').innerHTML = '<h3>Weekly Quests</h3><p>Error loading quests</p>';
+            document.getElementById('limited-quests').innerHTML = '<h3>Limited-Time Quests</h3><p>Error loading quests</p>';
+        }
+    }
+
+    window.onload = () => {
+        showContent('home');
+        if (loggedInUsername) restoreNFTPreview();
+        if (window.solana && window.solana.isConnected) {
+            toggleWalletConnection();
+        }
+        updateAuthButton();
+        updateQuestsDisplay();
+    };
+</script>
+</body>
+</html>
+

@@ -1,0 +1,621 @@
+{
+  "LemonHead": {
+    "password": "Think400Big!",
+    "wallet": "B7QEH63X2gV7ET1uyWW39JYVPw8a9Z9HrEb6RW3ukQB4",
+    "nfts": [
+      {
+        "mintAddress": "FaYLHfkuqGcabhQ2bQkP8ZEvhS7ddHWXFrw6RLGveq7V",
+        "points": 2,
+        "staked": false,
+        "stakeStart": 0,
+        "rewards": 481
+      },
+      {
+        "mintAddress": "9eAXc78LBGQnk6QbNLg8GmqtBytMCkFwikc7ZiZedmYF",
+        "points": 2,
+        "staked": false,
+        "stakeStart": 0,
+        "rewards": 876
+      },
+      {
+        "mintAddress": "68tGo9tSVAV873KMWamoLvNRMNVtHK85MxQJDfKaXj56",
+        "points": 2,
+        "staked": true,
+        "stakeStart": 1740512043206,
+        "rewards": 2940,
+        "imageUri": "http://localhost:3000/output/nft_1740613005537.png"
+      },
+      {
+        "mintAddress": "HbGZQweeUcggc6wYUCB65odhNjuQz2cdCSSnPmAp9a1s",
+        "points": 2,
+        "staked": false,
+        "stakeStart": 0,
+        "rewards": 579,
+        "imageUri": "http://localhost:3000/output/nft_1740613149364.png"
+      },
+      {
+        "mintAddress": "94zVxisYp2pQ2FLTdCePK97SQYhpKroiiedUwiWVREKA",
+        "points": 2,
+        "staked": true,
+        "stakeStart": 1740516155357,
+        "rewards": 2871,
+        "mintTimestamp": 1740516141253,
+        "imageUri": "http://localhost:3000/output/nft_1740613229461.png"
+      },
+      {
+        "mintAddress": "FGvQYz2fURPPuR1P7RShCgyafPhpaMvMg7B5xntyyj8u",
+        "points": 2,
+        "staked": true,
+        "stakeStart": 1740596092360,
+        "rewards": 1539,
+        "mintTimestamp": 1740518935956,
+        "imageUri": "http://localhost:3000/output/nft_1740597546184.png"
+      },
+      {
+        "mintAddress": "CTVX4iGpVzysU9YcGTcLikQxtsrHRryAF3sFGbXUL2yv",
+        "points": 2,
+        "staked": true,
+        "stakeStart": 1740538172847,
+        "rewards": 2504,
+        "mintTimestamp": 1740537720877,
+        "imageUri": "http://localhost:3000/output/nft_1740613807826.png"
+      },
+      {
+        "mintAddress": "RVYGsnGwpLf472vyfML6uDzDEtHTENnaGqaM6bnW8Mb",
+        "points": 2,
+        "staked": true,
+        "stakeStart": 1740539355480,
+        "rewards": 2485,
+        "mintTimestamp": 1740538194179,
+        "imageUri": "http://localhost:3000/output/nft_1740613043787.png"
+      },
+      {
+        "mintAddress": "2f8G822wYJcHR4fPCTWYgebeXjpZCBko3J2cJrHXa7MG",
+        "points": 2,
+        "staked": true,
+        "stakeStart": 1740539358748,
+        "rewards": 2485,
+        "mintTimestamp": 1740539337111,
+        "imageUri": "http://localhost:3000/output/nft_1740613070078.png"
+      },
+      {
+        "mintAddress": "HTYDpbdraQJTQRRXHDkn6Qwsnd9zMQn8mdybCgUXJkdb",
+        "points": 2,
+        "staked": true,
+        "stakeStart": 1740596079481,
+        "rewards": 1539,
+        "mintTimestamp": 1740541212314,
+        "imageUri": "http://localhost:3000/output/nft_1740613104181.png"
+      },
+      {
+        "mintAddress": "DyY3nTfvxJtvaxmjwRJfvMXzror2sBtR1Ev54iL2t2Q8",
+        "points": 2,
+        "staked": true,
+        "stakeStart": 1740596076324,
+        "rewards": 1539,
+        "mintTimestamp": 1740543032073,
+        "imageUri": "http://localhost:3000/output/nft_1740596743200.png"
+      },
+      {
+        "mintAddress": "BJrq9UmRez5c4nKyJ1mqxNJrMTFhEooHuCsFtfC4PHXT",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740597511965,
+        "rewards": 1515,
+        "mintTimestamp": 1740596809319,
+        "imageUri": "http://localhost:3000/output/nft_1740688448114.png"
+      },
+      {
+        "mintAddress": "8iXoyZyc36LyjdZiLQiY1T7kPxbbGo25xJBFU5dwK144",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740597468451,
+        "rewards": 1516,
+        "mintTimestamp": 1740597456675,
+        "imageUri": "http://localhost:3000/output/nft_1740597438632.png"
+      },
+      {
+        "mintAddress": "CCUDUY32T4hpqY3WWZeQPjLyP52He4JWASgciENHJj1f",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740597606060,
+        "rewards": 1514,
+        "mintTimestamp": 1740597596407,
+        "imageUri": "http://localhost:3000/output/nft_1740597581226.png"
+      },
+      {
+        "mintAddress": "GGjS5D4s3C5dhrMfKzy7DqTL5ophxV6PjshMajSHYccp",
+        "points": 0,
+        "staked": true,
+        "stakeStart": 1740688361861,
+        "rewards": 1,
+        "mintTimestamp": 1740688353394,
+        "imageUri": "http://localhost:3000/output/nft_1740688335074.png"
+      }
+    ],
+    "lastLogin": 1740688317785,
+    "quests": {
+      "daily": [
+        {
+          "id": "lemon-picker",
+          "name": "Lemon Picker",
+          "desc": "Mint 1 NFT",
+          "goal": 1,
+          "reward": 50,
+          "progress": 1,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740688465850
+        },
+        {
+          "id": "community-zest",
+          "name": "Community Zest",
+          "desc": "Submit 1 forum post",
+          "goal": 1,
+          "reward": 25,
+          "progress": 1,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740688465850
+        },
+        {
+          "id": "social-squeeze",
+          "name": "Social Squeeze",
+          "desc": "Visit 2 social media links",
+          "goal": 2,
+          "reward": 20,
+          "progress": 2,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740688465850
+        }
+      ],
+      "weekly": [
+        {
+          "id": "grove-keeper",
+          "name": "Grove Keeper",
+          "desc": "Stake 3 NFTs",
+          "goal": 3,
+          "reward": 200,
+          "progress": 2,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740688465875
+        },
+        {
+          "id": "lemon-bard",
+          "name": "Lemon Bard",
+          "desc": "Post 5 comments or posts",
+          "goal": 5,
+          "reward": 150,
+          "progress": 1,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740688465875
+        },
+        {
+          "id": "visit-sections",
+          "name": "Citrus Explorer",
+          "desc": "Visit all 7 sections",
+          "goal": 7,
+          "reward": 100,
+          "progress": 7,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740688465875
+        }
+      ],
+      "limited": [
+        {
+          "id": "million-lemon-bash",
+          "name": "Million Lemon Bash",
+          "desc": "Evolve 2 NFTs",
+          "goal": 2,
+          "reward": 500,
+          "progress": 2,
+          "completed": true,
+          "claimed": false
+        }
+      ]
+    },
+    "points": null
+  },
+  "test123": {
+    "password": "1234",
+    "wallet": "B7QEH63X2gV7ET1uyWW39JYVPw8a9Z9HrEb6RW3ukQB4",
+    "nfts": [
+      {
+        "mintAddress": "DxaTGyh2RCqEXmJnk2XFMwNYcZxv8VkeqP2AAJ38sx7Z",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740595941857,
+        "rewards": 1519,
+        "mintTimestamp": 1740595935797,
+        "imageUri": "http://localhost:3000/output/nft_1740612731996.png"
+      },
+      {
+        "mintAddress": "8ejKj4XwexTV3uYf8uQHCjMobqtLFbWvaVRyAqcJNqD",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740595988098,
+        "rewards": 1518,
+        "mintTimestamp": 1740595978958,
+        "imageUri": "http://localhost:3000/output/nft_1740674414391.png"
+      },
+      {
+        "mintAddress": "AQa5rreTyD6GbVE46KQzy3rFbhtrDCLVvqNaP3eYk5uE",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740596026875,
+        "rewards": 1517,
+        "mintTimestamp": 1740596020703,
+        "imageUri": "http://localhost:3000/output/nft_1740681930980.png"
+      },
+      {
+        "mintAddress": "51pPNNcSbZhaQi3dLioPr8MKetEqD5iawUckmExDkMjV",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740597348494,
+        "rewards": 1495,
+        "mintTimestamp": 1740597338969,
+        "imageUri": "http://localhost:3000/output/nft_1740671819728.png"
+      },
+      {
+        "mintAddress": "GbNMwej3jT4vq9sEdCWyEo62dNDRBsEK2s3yRDdpwySU",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740597409332,
+        "rewards": 1494,
+        "mintTimestamp": 1740597400313,
+        "imageUri": "http://localhost:3000/output/nft_1740612503395.png"
+      },
+      {
+        "mintAddress": "5oMX5Fsn8wdKGdemudwv2A5mhEHVnSDFXUmtjp4k3LxT",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740598154852,
+        "rewards": 1482,
+        "mintTimestamp": 1740598147829,
+        "imageUri": "http://localhost:3000/output/nft_1740612526057.png"
+      },
+      {
+        "mintAddress": "5brU2ScENyaiK44PnodzPL2y58eTb8gnLctXTgXjR93B",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740598201948,
+        "rewards": 1481,
+        "mintTimestamp": 1740598194387,
+        "imageUri": "http://localhost:3000/output/nft_1740670941929.png"
+      },
+      {
+        "mintAddress": "Gd45NsWfqAvNbg5ZL12vrZiYMREJs3ikLnwdHdnqTGLt",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740606223817,
+        "rewards": 1348,
+        "mintTimestamp": 1740606213512,
+        "imageUri": "http://localhost:3000/output/nft_1740606193180.png"
+      },
+      {
+        "mintAddress": "7GM3VS8cQwWEbwsr1WR4DEFH9WQJVkD4jW697HPyyvXM",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740611388277,
+        "rewards": 1261,
+        "mintTimestamp": 1740611379358,
+        "imageUri": "http://localhost:3000/output/nft_1740687047603.png"
+      },
+      {
+        "mintAddress": "8u2UPfcBF8oAZRckT8LjD5qw7vumPuVQzAY8nB17zygV",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740612661122,
+        "rewards": 1240,
+        "mintTimestamp": 1740612650685,
+        "imageUri": "http://localhost:3000/output/nft_1740615677948.png"
+      },
+      {
+        "mintAddress": "FHWNce3vpktUw3Hwqkro7daxPxRrAiy72bEqnv1sAohg",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740615587367,
+        "rewards": 1191,
+        "mintTimestamp": 1740615576069,
+        "imageUri": "http://localhost:3000/output/nft_1740679744483.png"
+      },
+      {
+        "mintAddress": "2jMuJRqinXN1VrKxsUAyk867kSF3SSa7SbWMpiHg7gSg",
+        "points": 0,
+        "staked": true,
+        "stakeStart": 1740668070644,
+        "rewards": 317,
+        "mintTimestamp": 1740668059589,
+        "imageUri": "http://localhost:3000/output/nft_1740670032289.png"
+      },
+      {
+        "mintAddress": "5dmkQ1Y7N5734kkZmdMWdpUxXr8fm9tWyysv1AZ2XPYZ",
+        "points": 0,
+        "staked": true,
+        "stakeStart": 1740669999463,
+        "rewards": 285,
+        "mintTimestamp": 1740669987711,
+        "imageUri": "http://localhost:3000/output/nft_1740669970081.png"
+      },
+      {
+        "mintAddress": "4rFrNRGWvAMsK8WUtd2WTShtCuwJcHKZ9sLh4243oYHP",
+        "points": 0,
+        "staked": true,
+        "stakeStart": 1740671807474,
+        "rewards": 255,
+        "mintTimestamp": 1740671798042,
+        "imageUri": "http://localhost:3000/output/nft_1740682631614.png"
+      },
+      {
+        "mintAddress": "Axi5XFN7MQnAZmLXEkEEYf9efU8BAjaEQA7QQSnxBFVT",
+        "points": 0,
+        "staked": true,
+        "stakeStart": 1740679714357,
+        "rewards": 123,
+        "mintTimestamp": 1740679704343,
+        "imageUri": "http://localhost:3000/output/nft_1740679688098.png"
+      },
+      {
+        "mintAddress": "FKpUfXMYmEvQw6U9RFMPFzH2e3P9nvGh4ThviAQPELcn",
+        "points": 0,
+        "staked": true,
+        "stakeStart": 1740682550022,
+        "rewards": 75,
+        "mintTimestamp": 1740682541438,
+        "imageUri": "http://localhost:3000/output/nft_1740682518167.png"
+      },
+      {
+        "mintAddress": "ChFMuPNx6ypWPfMZKkM433opiVnWNJp2f1FxbwZsuzXe",
+        "points": 0,
+        "staked": true,
+        "stakeStart": 1740685873699,
+        "rewards": 20,
+        "mintTimestamp": 1740685864895,
+        "imageUri": "http://localhost:3000/output/nft_1740685846981.png"
+      },
+      {
+        "mintAddress": "9CXFPYj1vqYCPxAUbzqHjpxw5fqituGWaUFSQZyeqsdS",
+        "points": 0,
+        "staked": true,
+        "stakeStart": 1740687104213,
+        "rewards": 0,
+        "mintTimestamp": 1740687094860,
+        "imageUri": "http://localhost:3000/output/nft_1740687078598.png"
+      }
+    ],
+    "lastLogin": 1740665081446,
+    "quests": {
+      "daily": [
+        {
+          "id": "lemon-picker",
+          "name": "Lemon Picker",
+          "desc": "Mint 1 NFT",
+          "goal": 1,
+          "reward": 50,
+          "progress": 1,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740689089260
+        },
+        {
+          "id": "community-zest",
+          "name": "Community Zest",
+          "desc": "Submit 1 forum post",
+          "goal": 1,
+          "reward": 25,
+          "progress": 1,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740689089260
+        },
+        {
+          "id": "social-squeeze",
+          "name": "Social Squeeze",
+          "desc": "Visit 2 social media links",
+          "goal": 2,
+          "reward": 20,
+          "progress": 2,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740689089260
+        }
+      ],
+      "weekly": [
+        {
+          "id": "grove-keeper",
+          "name": "Grove Keeper",
+          "desc": "Stake 3 NFTs",
+          "goal": 3,
+          "reward": 200,
+          "progress": 3,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740689089264
+        },
+        {
+          "id": "lemon-bard",
+          "name": "Lemon Bard",
+          "desc": "Post 5 comments or posts",
+          "goal": 5,
+          "reward": 150,
+          "progress": 1,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740689089264
+        },
+        {
+          "id": "visit-sections",
+          "name": "Citrus Explorer",
+          "desc": "Visit all 7 sections",
+          "goal": 7,
+          "reward": 100,
+          "progress": 7,
+          "completed": true,
+          "claimed": true,
+          "resetTimestamp": 1740689089264
+        }
+      ],
+      "limited": [
+        {
+          "id": "million-lemon-bash",
+          "name": "Million Lemon Bash",
+          "desc": "Evolve 2 NFTs",
+          "goal": 2,
+          "reward": 500,
+          "progress": 2,
+          "completed": true,
+          "claimed": false
+        }
+      ]
+    },
+    "points": 440
+  },
+  "newuser123": {
+    "password": "1234",
+    "nfts": [
+      {
+        "mintAddress": "6J2dh9G6grVD1jYgytSvqmeHMK6JLXM9ZSCmYUtDah9y",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740542838754,
+        "rewards": 2460,
+        "mintTimestamp": 1740542823598,
+        "imageUri": "http://localhost:3000/output/nft_1740596293036.png"
+      },
+      {
+        "mintAddress": "4RmiGKCXbEcMa74S6j5XuMEFA7ZgzqbmzJM9Np2PTiqV",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740593286550,
+        "rewards": 1619,
+        "mintTimestamp": 1740593236420,
+        "imageUri": "http://localhost:3000/output/nft_1740596254531.png"
+      },
+      {
+        "mintAddress": "7kr3CVHJ5DEevtZqdWdiHF8aBCmb4CB8d9jeHR9nzHcu",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740596250937,
+        "rewards": 1569,
+        "mintTimestamp": 1740593314132,
+        "imageUri": "http://localhost:3000/output/nft_1740596634894.png"
+      },
+      {
+        "mintAddress": "8wg57d1HpCraNWSkywync2jxpsoKz9hHWhsQbfFHtH7r",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740596714473,
+        "rewards": 1562,
+        "mintTimestamp": 1740596697682,
+        "imageUri": "http://localhost:3000/output/nft_1740612938627.png"
+      },
+      {
+        "mintAddress": "AnsW3YUQqP7nFRZVM2TSNQqWgvKRVhR7iBuHBqMtPaU6",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740597655765,
+        "rewards": 1546,
+        "mintTimestamp": 1740597647932,
+        "imageUri": "http://localhost:3000/output/nft_1740598449567.png"
+      },
+      {
+        "mintAddress": "wC1rupYFedkjmnSDnyE3CMNHAAZjb5iVyrkKJBjpvZQ",
+        "points": 1,
+        "staked": true,
+        "stakeStart": 1740597708966,
+        "rewards": 1545,
+        "mintTimestamp": 1740597695335,
+        "imageUri": "http://localhost:3000/output/nft_1740598406966.png"
+      }
+    ],
+    "lastLogin": 1740690443132,
+    "quests": {
+      "daily": [
+        {
+          "id": "lemon-picker",
+          "name": "Lemon Picker",
+          "desc": "Mint 1 NFT",
+          "goal": 1,
+          "reward": 50,
+          "progress": 0,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740690453448
+        },
+        {
+          "id": "community-zest",
+          "name": "Community Zest",
+          "desc": "Submit 1 forum post",
+          "goal": 1,
+          "reward": 25,
+          "progress": 0,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740690453448
+        },
+        {
+          "id": "social-squeeze",
+          "name": "Social Squeeze",
+          "desc": "Visit 2 social media links",
+          "goal": 2,
+          "reward": 20,
+          "progress": 0,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740690453448
+        }
+      ],
+      "weekly": [
+        {
+          "id": "grove-keeper",
+          "name": "Grove Keeper",
+          "desc": "Stake 3 NFTs",
+          "goal": 3,
+          "reward": 200,
+          "progress": 0,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740690453449
+        },
+        {
+          "id": "lemon-bard",
+          "name": "Lemon Bard",
+          "desc": "Post 5 comments or posts",
+          "goal": 5,
+          "reward": 150,
+          "progress": 0,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740690453449
+        },
+        {
+          "id": "visit-sections",
+          "name": "Citrus Explorer",
+          "desc": "Visit all 7 sections",
+          "goal": 7,
+          "reward": 100,
+          "progress": 2,
+          "completed": false,
+          "claimed": false,
+          "resetTimestamp": 1740690453449
+        }
+      ],
+      "limited": [
+        {
+          "id": "million-lemon-bash",
+          "name": "Million Lemon Bash",
+          "desc": "Evolve 2 NFTs",
+          "goal": 2,
+          "reward": 500,
+          "progress": 0,
+          "completed": false,
+          "claimed": false
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "my-nft-project",
+  "version": "1.0.0",
+  "description": "Lemon Club Collective NFT Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@metaplex-foundation/js": "^0.20.1",
+    "@solana/spl-token": "^0.4.8",
+    "@solana/web3.js": "^1.95.2",
+    "canvas": "^2.11.2",
+    "express": "^4.19.2"
+  }
+}
